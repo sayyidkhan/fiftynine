@@ -1,0 +1,349 @@
+📄 Product Requirements Document (PRD)
+
+🧩 Product Name (Working)
+
+OnTrack AI
+
+⸻
+
+1. 🎯 Problem Statement
+
+Teams consistently fail to deliver on expected timelines—not due to lack of effort, but due to:
+
+* Mismatch between planned vs actual work
+* Scope creep during execution
+* Unforeseen disruptions (infra downtime, performance issues, leave)
+* Delayed visibility into problems
+
+Root Cause:
+
+Project tracking relies on manual updates, which are:
+
+* Incomplete
+* Delayed
+* Biased
+
+As a result:
+
+* Teams only realize delays too late
+* Decisions are reactive, not proactive
+
+⸻
+
+2. 💡 Product Vision
+
+A self-updating execution system that automatically captures work activity and continuously recomputes project timelines using AI.
+
+The system:
+
+* Eliminates manual updates
+* Builds ground truth of execution
+* Dynamically adjusts expectations in real time
+* Learns from historical data to improve future planning
+
+⸻
+
+3. 🧠 Core Principles
+
+1. Zero Friction Capture
+
+Users should not need to manually update progress.
+
+2. Ground Truth Over Reported Truth
+
+System relies on actual activity signals, not self-reported status.
+
+3. Continuous Recalculation
+
+Project timelines are not static — they evolve with reality.
+
+4. AI as Reasoning Engine
+
+AI explains:
+
+* What changed
+* Why it changed
+* What to do next
+
+5. Compounding Intelligence
+
+Past projects improve future estimation and planning.
+
+⸻
+
+4. 👤 Target Users (Hackathon Scope)
+
+Primary:
+
+* Software Developers
+* Engineering Teams
+
+Secondary (Future):
+
+* Product Managers
+* Operations Teams
+* Non-technical knowledge workers (via tool integrations)
+
+⸻
+
+5. ⚙️ Core Features
+
+⸻
+
+5.1 Passive Activity Capture (MCP Layer)
+
+Description:
+
+Automatically capture daily work without manual input.
+
+Inputs:
+
+* Git commits
+* Pull requests
+* Local dev activity (via MCP hooks)
+* Task metadata (mock Jira / backlog)
+
+Output:
+
+* Auto-generated daily changelog
+* Structured activity logs
+
+⸻
+
+5.2 AI Activity Summarisation
+
+Description:
+
+Convert raw activity into meaningful daily updates.
+
+Output:
+
+* What was worked on
+* What progressed
+* What changed
+* Emerging blockers (if detectable)
+
+⸻
+
+5.3 Execution Understanding Engine
+
+Description:
+
+AI reconstructs project state by comparing:
+
+* Planned work (tasks, scope)
+* Actual work (captured activity)
+
+Output:
+
+* Task progress mapping
+* Velocity trends
+* Scope changes detected
+
+⸻
+
+5.4 Dynamic Timeline Recalculation (Core Feature)
+
+Description:
+
+Continuously recompute project timeline based on:
+
+* Actual velocity
+* Scope changes
+* Disruptions (e.g., leave, downtime)
+
+Output:
+
+* Updated delivery estimate
+* Delay prediction (if any)
+* Acceleration opportunities (if possible)
+
+⸻
+
+5.5 Deviation Detection & Explanation
+
+Description:
+
+Detect when execution deviates from plan and explain why.
+
+Output Examples:
+
+* “Project delayed by 2 days due to increased scope (+30%)”
+* “Velocity dropped due to infra downtime”
+* “Auth module taking longer due to performance debugging”
+
+⸻
+
+5.6 AI Recommendations
+
+Description:
+
+Suggest actionable next steps.
+
+Output:
+
+* Extend timeline
+* Reduce scope
+* Reallocate resources
+* Parallelize tasks
+
+⸻
+
+5.7 Execution Timeline View (Not Just Dashboard)
+
+Description:
+
+Unified, AI-generated view of project state.
+
+Displays:
+
+* Current status (On-track / Off-track)
+* Timeline evolution
+* Key events:
+    * Scope changes
+    * Velocity shifts
+    * Blockers
+
+⸻
+
+5.8 Historical Intelligence Layer
+
+Description:
+
+Store completed project data for future learning.
+
+Capabilities:
+
+* Cross-project analysis
+* Pattern detection:
+    * “Tasks of type X take 30% longer”
+* Improved future estimation
+
+⸻
+
+6. 🔄 User Flow (Developer - Hackathon Version)
+
+Step 1:
+
+Developer works normally (commits, PRs)
+
+Step 2:
+
+MCP captures activity automatically
+
+Step 3:
+
+System generates daily changelog
+
+Step 4:
+
+AI summarises and interprets activity
+
+Step 5:
+
+System updates:
+
+* Project status
+* Timeline projection
+
+Step 6:
+
+User views:
+
+* “On track / Off track”
+* Reasons
+* Suggested actions
+
+⸻
+
+7. 🧪 Demo Scenario (Hackathon)
+
+Setup:
+
+* Project planned: 5 features in 7 days
+
+Simulated Inputs:
+
+* Reduced commit frequency
+* Scope increase (new feature added)
+* Dev inactivity (leave / downtime)
+
+Expected Output:
+
+* System flags delay
+* Explains:
+    * Scope increase
+    * Velocity drop
+* Suggests:
+    * Timeline extension OR scope reduction
+
+⸻
+
+8. 🏗️ Technical Architecture (High-Level)
+
+Input Layer:
+
+* MCP hooks (dev activity)
+* Mock task data (JSON)
+
+Processing Layer:
+
+* LLM (Claude) for:
+    * Summarisation
+    * Reasoning
+    * Deviation detection
+
+Logic Layer:
+
+* Timeline estimation engine
+* Velocity tracking
+* Scope change detection
+
+Output Layer:
+
+* API / UI
+* Timeline view
+* Status indicators
+
+⸻
+
+9. 🚫 Non-Goals (Hackathon Scope)
+
+* Full Jira integration
+* Full enterprise dashboard
+* Complex UI/UX
+* Multi-team scaling
+
+⸻
+
+10. ✅ Success Metrics (Hackathon)
+
+* Demonstrates:
+    * Automatic activity capture
+    * Accurate summarisation
+    * Clear deviation detection
+    * Logical timeline recomputation
+* Judges understand:
+    * Problem clearly
+    * Solution clearly
+    * Why it’s different
+
+⸻
+
+11. 🔮 Future Expansion
+
+* Non-dev integrations:
+    * Slack
+    * Docs
+    * Meetings
+* Organization-wide execution tracking
+* AI coworker:
+    * Prompts users to log meaningful work (low friction)
+
+⸻
+
+🧭 Final Note
+
+This PRD preserves your idea but makes one critical upgrade:
+
+It elevates your product from “tracking tool” → execution intelligence system
