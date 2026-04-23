@@ -1,0 +1,176 @@
+🧠 PRD: Guardian Angel Microservice
+1. Product Overview
+Name: Guardian Angel Microservice
+Type: Internal AI Ops Microservice
+One-liner:
+An AI-first incident responder that detects, diagnoses, and resolves low-impact microservice issues before escalating to developers.
+2. Problem Statement
+Modern microservice systems suffer from:
+Alert fatigue — too many low-severity issues reach engineers
+Slow response time — every issue enters human workflow
+Repetitive fixes — same incidents solved manually again and again
+Result:
+wasted engineering time
+delayed resolution
+inefficient operations
+3. Goal (Hackathon Scope)
+Build a system that:
+detects a low-impact incident
+performs AI-based diagnosis
+executes a pre-approved recovery action
+verifies recovery
+escalates only if needed
+4. Non-Goals (Important)
+To keep scope tight:
+❌ No full infra automation
+❌ No high-risk actions (DB writes, config changes)
+❌ No multi-service orchestration
+❌ No production-grade security/compliance
+5. Target User
+Backend engineers
+DevOps engineers
+Platform teams
+6. Core Use Case (MVP)
+🎯 Scenario: Stuck Worker / Failing Service
+Service health degrades (e.g. job queue stuck)
+Guardian detects anomaly
+AI summarizes logs + metrics
+Maps to known issue pattern
+Executes safe action:
+restart worker OR
+retry job OR
+rollback deploy
+Verifies recovery
+If fail → escalate with summary
+7. Key Features
+7.1 Incident Detection
+Inputs:
+health endpoint (/health)
+error rate
+queue depth (optional)
+Output:
+incident event
+7.2 AI Diagnosis Engine
+Uses:
+logs
+metrics
+recent deployments
+Output:
+root cause hypothesis
+confidence score
+suggested action
+7.3 Service Registry (Critical)
+Each service defines:
+{
+  "service": "email-worker",
+  "safe_actions": [
+    "restart_worker",
+    "retry_jobs"
+  ],
+  "incident_patterns": [
+    "queue_stuck",
+    "worker_crash"
+  ]
+}
+7.4 Remediation Engine
+Executes only:
+pre-approved actions
+Examples:
+restart pod
+retry job
+rollback deployment (optional stretch)
+7.5 Verification Engine
+Checks:
+health restored
+error rate reduced
+queue draining
+7.6 Escalation System
+If unresolved:
+send alert (Slack / console)
+include:
+summary
+attempted fixes
+suspected cause
+8. System Architecture
+Components:
+1. Event Listener
+listens to alerts / simulated triggers
+2. Agent Orchestrator
+controls flow: detect → diagnose → act
+3. Diagnosis Agent
+LLM-based reasoning over logs
+4. Action Engine
+executes safe actions
+5. Service Registry
+defines allowed actions per service
+6. Verification Module
+checks if issue resolved
+7. Notification Module
+escalates to human
+9. Data Flow
+Alert Triggered
+     ↓
+Incident Created
+     ↓
+Diagnosis Agent (LLM)
+     ↓
+Action Decision (Policy Check)
+     ↓
+Remediation Action
+     ↓
+Verification
+     ↓
+[Resolved] OR [Escalate]
+10. Example Demo Flow (Very Important)
+Demo Story:
+Simulate:
+worker stops processing jobs
+System detects:
+queue depth rising
+AI outputs:
+“Worker likely stuck due to missing heartbeat. Recommended action: restart_worker (confidence: 0.87)”
+System executes:
+restart worker
+UI shows:
+queue draining
+health restored
+Status:
+✅ Auto-resolved
+11. Success Metrics (Hackathon Level)
+% of incidents auto-resolved
+time to resolution (vs manual)
+reduction in developer escalation
+12. Tech Stack (Suggested)
+Keep it simple:
+Backend: Node.js / Python (FastAPI)
+LLM: OpenAI / Claude / local model
+Infra Simulation: Docker / simple services
+Execution Layer: scripts or mocked actions
+UI (optional): React dashboard
+13. MVP Scope (Strict)
+Must have:
+1 microservice (simulated)
+1 failure scenario
+2–3 safe actions
+basic AI diagnosis
+simple verification
+Nice to have:
+rollback deploy
+multiple services
+confidence scoring UI
+14. Risks
+AI hallucination → solved via action allowlist
+over-automation → solved via low-risk scope
+unclear diagnosis → fallback to escalation
+15. Future Vision (Don’t build now, just mention)
+multi-service dependency healing
+predictive failure detection
+infra-level automation (K8s, cloud)
+blockchain node recovery
+sustainability asset healing
+🧾 Final Positioning (use this in pitch)
+“Guardian Angel is an AI-powered microservice that acts as the first responder for software incidents — automatically diagnosing and resolving low-impact issues before engineers are involved.”
+⚡ TLDR
+Focus: AI incident triage + safe auto-heal
+Scope: 1 service, 1 failure, 1 fix
+Key idea: AI acts first, human second
